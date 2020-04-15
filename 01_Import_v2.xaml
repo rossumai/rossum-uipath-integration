@@ -1,0 +1,294 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Login" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="262,587" sap2010:WorkflowViewState.IdRef="Login_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.PDF</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Copyright (c) 2020 Innovation Path s.r.o. (www.innovationpath.eu)&#xA;&#xA;This workflow logs to ELIS using credentials provided in 'credentials.json' and imports all pdf files from 'a_Input files' folder." DisplayName="01_Import" sap:VirtualizedContainerService.HintSize="242,487" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="authKey" />
+      <Variable x:TypeArguments="x:String" Default="https://api.elis.rossum.ai/v1" Name="Endpoint" />
+      <Variable x:TypeArguments="x:String" Name="loginID" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="Login" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="loginJson" />
+        <Variable x:TypeArguments="njl:JObject" Name="objJson" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:ReadTextFile Content="[loginJson]" DisplayName="Read Text File" FileName="[Environment.CurrentDirectory +&quot;\credentials.json&quot;]" sap:VirtualizedContainerService.HintSize="338,59" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+      <ui:Replace DisplayName="Replace ' for &quot;" sap:VirtualizedContainerService.HintSize="338,22" sap2010:WorkflowViewState.IdRef="Replace_4" Input="[loginJson]" Pattern="[Chr(39)]" RegexOption="IgnoreCase, Compiled" Replacement="[Chr(34)]" Result="[loginJson]" />
+      <ui:HttpClient ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" Body="[loginJson]" BodyFormat="application/json" DisplayName="HTTP Request - LOGIN" EndPoint="[Endpoint + &quot;/auth/login&quot;]" sap:VirtualizedContainerService.HintSize="338,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="POST" Result="[loginID]" TimeoutMS="20000">
+        <ui:HttpClient.Attachments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Attachments>
+        <ui:HttpClient.Headers>
+          <InArgument x:TypeArguments="x:String" x:Key="Content-Type">application/json</InArgument>
+        </ui:HttpClient.Headers>
+        <ui:HttpClient.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Parameters>
+        <ui:HttpClient.UrlSegments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.UrlSegments>
+      </ui:HttpClient>
+      <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="338,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[objJson]" JsonString="[loginID]" />
+      <Assign sap:VirtualizedContainerService.HintSize="338,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[loginID]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[objJson("key").ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="338,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Account logged in&quot;]" />
+    </Sequence>
+    <Sequence DisplayName="Upload documents" sap:VirtualizedContainerService.HintSize="376,703" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="JsonQueues" />
+        <Variable x:TypeArguments="njl:JObject" Name="JsonObjQueue" />
+        <Variable x:TypeArguments="s:String[]" Name="FilesToUpload" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence DisplayName="Create AuthKey" sap:VirtualizedContainerService.HintSize="334,66" sap2010:WorkflowViewState.IdRef="Sequence_7">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign DisplayName="Create Authorization Key" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[authKey]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">Token LOGIN_ID</InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:Replace DisplayName="Insert LoginID to authKey" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="Replace_3" Input="[authKey]" Pattern="LOGIN_ID" RegexOption="IgnoreCase, Compiled" Replacement="[loginID]" Result="[authKey]" />
+      </Sequence>
+      <Sequence DisplayName="Get Queue ID" sap:VirtualizedContainerService.HintSize="334,66" sap2010:WorkflowViewState.IdRef="Sequence_8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" sap2010:Annotation.AnnotationText="" BodyFormat="application/json" DisplayName="HTTP Request - LIST QUEUES" EndPoint="[Endpoint +&quot;\queues&quot;]" sap:VirtualizedContainerService.HintSize="334,53" sap2010:WorkflowViewState.IdRef="HttpClient_5" Method="GET" Result="[JsonQueues]" TimeoutMS="20000">
+          <ui:HttpClient.Attachments>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+          </ui:HttpClient.Attachments>
+          <ui:HttpClient.Headers>
+            <InArgument x:TypeArguments="x:String" x:Key="Authorization">[authKey]</InArgument>
+          </ui:HttpClient.Headers>
+          <ui:HttpClient.Parameters>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+          </ui:HttpClient.Parameters>
+          <ui:HttpClient.UrlSegments>
+            <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+          </ui:HttpClient.UrlSegments>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:HttpClient>
+        <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_2" JsonObject="[JsonObjQueue]" JsonString="[JsonQueues]" />
+        <Assign DisplayName="Get Endpoint with first queue" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[Endpoint]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[JsonObjQueue("results")(0)("url").ToString]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </Sequence>
+      <Assign DisplayName="Get pdf files of Invoices folder" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="s:String[]">[FilesToUpload]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(Environment.CurrentDirectory +"\a_Input files","*.pdf")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each file to import" sap:VirtualizedContainerService.HintSize="334,200" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[FilesToUpload]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="x:String">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:String" Name="file" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="File import" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:String" Name="ImportResult" />
+                <Variable x:TypeArguments="njl:JObject" Name="ImportResultJSON" />
+                <Variable x:TypeArguments="x:String" Name="AnnotationID" />
+                <Variable x:TypeArguments="x:String" Name="FilenameWithAnnotationID" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:HttpClient Body="{x:Null}" ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" sap2010:Annotation.AnnotationText="" BodyFormat="multipart/form-data" DisplayName="HTTP Request - IMPORT" EndPoint="[Endpoint + &quot;\upload&quot;]" sap:VirtualizedContainerService.HintSize="334,53" sap2010:WorkflowViewState.IdRef="HttpClient_3" Method="POST" Result="[ImportResult]" TimeoutMS="20000">
+                <ui:HttpClient.Attachments>
+                  <InArgument x:TypeArguments="x:String" x:Key="content">[file]</InArgument>
+                </ui:HttpClient.Attachments>
+                <ui:HttpClient.Headers>
+                  <InArgument x:TypeArguments="x:String" x:Key="Authorization">[authKey]</InArgument>
+                </ui:HttpClient.Headers>
+                <ui:HttpClient.Parameters>
+                  <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                </ui:HttpClient.Parameters>
+                <ui:HttpClient.UrlSegments>
+                  <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                </ui:HttpClient.UrlSegments>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:HttpClient>
+              <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize to ImportResultJSON" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_3" JsonObject="[ImportResultJSON]" JsonString="[ImportResult]" />
+              <Assign DisplayName="Get AnnotationID" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[AnnotationID]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ImportResultJSON("annotation").ToString.Split("/"c).Last]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Extract filename only" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[FilenameWithAnnotationID]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[file.Split("\"c).Last.ToString]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Insert AnnotationID to filename" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[FilenameWithAnnotationID]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[left(FilenameWithAnnotationID, FilenameWithAnnotationID.LastIndexOf("."c))+"_" + AnnotationID+ right(FilenameWithAnnotationID, len( FilenameWithAnnotationID) - FilenameWithAnnotationID.LastIndexOf("."c))]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:MoveFile ContinueOnError="{x:Null}" Destination="[Environment.CurrentDirectory +&quot;\b_Processing files\&quot; + FilenameWithAnnotationID]" DisplayName="Move file to Processing folder" sap:VirtualizedContainerService.HintSize="314,22" sap2010:WorkflowViewState.IdRef="MoveFile_1" Overwrite="False" Path="[file]" />
+              <ui:LogMessage DisplayName="Log imported file" sap:VirtualizedContainerService.HintSize="314,51" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Importing: &quot; + file]">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:LogMessage>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEach>
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" Buttons="Ok" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Invoices successfully uploaded to Rossum.&quot;+vbNewLine +vbNewLine +&quot;To see your processed invoices login at&quot;+vbNewLine +&quot;https://elis.rossum.ai&quot;]" TopMost="True" />
+    </Sequence>
+    <Sequence DisplayName="Logout" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="loginJson" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:HttpClient ClientCertificate="{x:Null}" ClientCertificatePassword="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" Result="{x:Null}" StatusCode="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" Body="[loginJson]" BodyFormat="application/json" DisplayName="HTTP Request - LOGOUT" EndPoint="[Endpoint + &quot;/auth/logout&quot;]" sap:VirtualizedContainerService.HintSize="314,22" sap2010:WorkflowViewState.IdRef="HttpClient_4" Method="POST" TimeoutMS="20000">
+        <ui:HttpClient.Attachments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Attachments>
+        <ui:HttpClient.Headers>
+          <InArgument x:TypeArguments="x:String" x:Key="Content-Type">application/json</InArgument>
+        </ui:HttpClient.Headers>
+        <ui:HttpClient.Parameters>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.Parameters>
+        <ui:HttpClient.UrlSegments>
+          <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+        </ui:HttpClient.UrlSegments>
+      </ui:HttpClient>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="314,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Acount logged out. Finished importing documents.&quot;]" />
+    </Sequence>
+  </Sequence>
+</Activity>

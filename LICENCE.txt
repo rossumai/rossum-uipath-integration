@@ -1,6 +1,4 @@
-Copyright (c) 2019 Innovation Path s.r.o.
-
-www.innovationpath.eu
+Copyright (c) 2020 Innovation Path s.r.o. (www.innovationpath.eu)
 
 Created in cooperation with ROSSUM (www.rossum.ai)
 
